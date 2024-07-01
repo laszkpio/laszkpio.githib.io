@@ -66,15 +66,16 @@ function checkInput() {
     wordDisplay.innerHTML = generateWordDisplay(currentWord, typedValue);
     
     if (typedValue.toLowerCase() === currentWord.toLowerCase()) {
+		// Play fanfare sound
+        fanfareSound.currentTime = 0;
+        fanfareSound.play();
         score++;
         currentWordIndex++;
         wordInput.value = "";
         scoreDisplay.textContent = `Wynik: ${score}`;
         displayNextWord();
-        
-        // Play fanfare sound
-        fanfareSound.currentTime = 0;
-        fanfareSound.play();
+        speak(currentWord);
+
         
     } else if (typedValue.length <= currentWord.length) {
         if (typedValue[typedValue.length - 1]?.toLowerCase() === currentWord[typedValue.length - 1]?.toLowerCase()) {
@@ -103,4 +104,10 @@ function endGame() {
     wordDisplay.textContent = "Świetna robota Zuza!";
     wordInput.disabled = true;
     keys.forEach(key => key.classList.remove("highlight"));
+}
+
+function speak(text) {
+      const speechSynthesisUtterance = new SpeechSynthesisUtterance(text);
+      speechSynthesisUtterance.lang = 'pl-PL';
+      window.speechSynthesis.speak(speechSynthesisUtterance);
 }
