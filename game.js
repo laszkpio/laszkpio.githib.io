@@ -28,7 +28,7 @@ function startGame() {
     wordInput.value = "";
     wordInput.disabled = false;
     wordInput.focus();
-    scoreDisplay.textContent = `Score: ${score}`;
+    scoreDisplay.textContent = `Wynik: ${score}`;
     displayNextWord();
 }
 
