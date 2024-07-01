@@ -68,14 +68,15 @@ function checkInput() {
     if (typedValue.toLowerCase() === currentWord.toLowerCase()) {
 		// Play fanfare sound
         fanfareSound.currentTime = 0;
+		fanfareSound.onend = function() {
+			score++;
+			currentWordIndex++;
+			wordInput.value = "";
+			scoreDisplay.textContent = `Wynik: ${score}`;
+			displayNextWord();
+			speak(words[currentWordIndex]);
+		  };
         fanfareSound.play();
-        score++;
-        currentWordIndex++;
-        wordInput.value = "";
-        scoreDisplay.textContent = `Wynik: ${score}`;
-        displayNextWord();
-        speak(currentWord);
-
         
     } else if (typedValue.length <= currentWord.length) {
         if (typedValue[typedValue.length - 1]?.toLowerCase() === currentWord[typedValue.length - 1]?.toLowerCase()) {
