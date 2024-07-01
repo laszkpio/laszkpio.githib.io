@@ -69,7 +69,7 @@ function checkInput() {
         score++;
         currentWordIndex++;
         wordInput.value = "";
-        scoreDisplay.textContent = `Score: ${score}`;
+        scoreDisplay.textContent = `Wynik: ${score}`;
         displayNextWord();
         
         // Play fanfare sound
@@ -100,7 +100,7 @@ function highlightNextKey() {
 }
 
 function endGame() {
-    wordDisplay.textContent = "Great job!";
+    wordDisplay.textContent = "Świetna robota Zuza!";
     wordInput.disabled = true;
     keys.forEach(key => key.classList.remove("highlight"));
 }
