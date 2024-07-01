@@ -68,7 +68,7 @@ function checkInput() {
     if (typedValue.toLowerCase() === currentWord.toLowerCase()) {
 		// Play fanfare sound
         fanfareSound.currentTime = 0;
-		fanfareSound.onend = function() {
+		fanfareSound.onended  = function() {
 			score++;
 			currentWordIndex++;
 			wordInput.value = "";
