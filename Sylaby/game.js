@@ -38,7 +38,7 @@ function create() {
             }
         });
         this.birdGroup.add(bird);
-        bird.text = this.add.text(bird.x - 20, bird.y - 70, bird.syllable, { font: '32px Arial', fill: '#000' });
+        bird.text = this.add.text(bird.x + bird.displayWidth/2, bird.y + bird.displayHeight/2, bird.syllable, { font: '32px Arial', fill: '#000' });
 		this.birdGroup.add(bird.text);
     }
 }
