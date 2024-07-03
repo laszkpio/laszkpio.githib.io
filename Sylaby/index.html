@@ -1,20 +1,12 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Text to Speech in Polish</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phaser Game</title>
+    <script src="https://cdn.jsdelivr.net/npm/phaser@3.55.2/dist/phaser.js"></script>
 </head>
 <body>
-  <h1>Text to Speech Converter (Polish)</h1>
-  <textarea id="text" rows="10" cols="50">Wpisz tutaj tekst...</textarea><br><br>
-  <button onclick="speak()">Mów</button>
-
-  <script>
-    function speak() {
-      const text = document.getElementById('text').value;
-      const speechSynthesisUtterance = new SpeechSynthesisUtterance(text);
-      speechSynthesisUtterance.lang = 'pl-PL';
-      window.speechSynthesis.speak(speechSynthesisUtterance);
-    }
-  </script>
+    <script src="game.js"></script>
 </body>
 </html>

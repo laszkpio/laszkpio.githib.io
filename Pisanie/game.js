@@ -36,6 +36,7 @@ function displayNextWord() {
     if (currentWordIndex < words.length) {
         wordDisplay.innerHTML = generateWordDisplay(words[currentWordIndex], "");
         highlightNextKey();
+		speak(words[currentWordIndex]);
     } else {
         endGame();
     }
@@ -72,9 +73,7 @@ function checkInput() {
 			score++;
 			currentWordIndex++;
 			wordInput.value = "";
-			scoreDisplay.textContent = `Wynik: ${score}`;
-			displayNextWord();
-			speak(words[currentWordIndex]);
+			scoreDisplay.textContent = `Wynik: ${score}`;			
 		  };
         fanfareSound.play();
         
