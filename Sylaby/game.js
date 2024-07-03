@@ -3,8 +3,8 @@ let currentIndex = 0;
 
 const config = {
     type: Phaser.AUTO,
-    width: 800,
-    height: 600,
+    width: 1600,
+    height: 1200,
     scene: {
         preload: preload,
         create: create,
@@ -15,47 +15,47 @@ const config = {
 const game = new Phaser.Game(config);
 
 function preload() {
-    this.load.image('sheep', 'sheep.png');
+    this.load.image('bird', 'sprites/red_bird_normal.png');
 }
 
 function create() {
-    this.sheepGroup = this.add.group();
+    this.birdGroup = this.add.group();
 
     for (let i = 0; i < syllables.length; i++) {
-        let sheep = this.add.sprite(100 + i * 200, 300, 'sheep').setInteractive();
-        sheep.syllable = syllables[i];
-        sheep.on('pointerdown', () => {
-            if (sheep.syllable === syllables[currentIndex]) {
-                sheep.setTint(0x00ff00);  // Correct, turn green
+        let bird = this.add.sprite(100 + i * 200, 300, 'bird').setInteractive();
+        bird.syllable = syllables[i];
+        bird.on('pointerdown', () => {
+            if (bird.syllable === syllables[currentIndex]) {
+                bird.setTint(0x00ff00);  // Correct, turn green
                 currentIndex++;
                 if (currentIndex === syllables.length) {
                     alert('Correct word!');
-                    resetGame(this.sheepGroup);
+                    resetGame(this.birdGroup);
                 }
             } else {
                 alert('Try again!');
-                resetGame(this.sheepGroup);
+                resetGame(this.birdGroup);
             }
         });
-        this.sheepGroup.add(sheep);
-        sheep.text = this.add.text(sheep.x - 20, sheep.y - 70, sheep.syllable, { font: '32px Arial', fill: '#000' });
-		this.sheepGroup.add(sheep.text);
+        this.birdGroup.add(bird);
+        bird.text = this.add.text(bird.x - 20, bird.y - 70, bird.syllable, { font: '32px Arial', fill: '#000' });
+		this.birdGroup.add(bird.text);
     }
 }
 
 function update() {
-    Phaser.Actions.IncX(this.sheepGroup.getChildren(), 1);
+    Phaser.Actions.IncX(this.birdGroup.getChildren(), 1);
 
-    this.sheepGroup.getChildren().forEach(sheep => {
-        if (sheep.x > 800) {
-            sheep.x = 0;
+    this.birdGroup.getChildren().forEach(bird => {
+        if (bird.x > 1600) {
+            bird.x = 0;
         }
     });
 }
 
-function resetGame(sheepGroup) {
+function resetGame(birdGroup) {
     currentIndex = 0;
-    sheepGroup.getChildren().forEach(sheep => {
-        sheep.clearTint();
+    birdGroup.getChildren().forEach(bird => {
+        bird.clearTint();
     });
 }
