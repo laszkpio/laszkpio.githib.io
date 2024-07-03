@@ -38,7 +38,7 @@ function create() {
             }
         });
         this.birdGroup.add(bird);
-        bird.text = this.add.text(bird.x - 100, bird.y - 100, bird.syllable, { font: '32px Arial', fill: '#fff' });
+        bird.text = this.add.text(bird.x - 100, bird.y - 70, bird.syllable, { font: '32px Arial', fill: '#fff' });
 		this.birdGroup.add(bird.text);
     }
 }
@@ -49,6 +49,7 @@ function update() {
     this.birdGroup.getChildren().forEach(bird => {
         if (bird.x > 1600) {
             bird.x = 0;
+			bird.text.x = 0;
         }
     });
 }
