@@ -38,7 +38,8 @@ function create() {
             }
         });
         this.sheepGroup.add(sheep);
-        this.add.text(sheep.x - 20, sheep.y - 70, sheep.syllable, { font: '32px Arial', fill: '#000' });
+        sheep.text = this.add.text(sheep.x - 20, sheep.y - 70, sheep.syllable, { font: '32px Arial', fill: '#000' });
+		this.sheepGroup.add(sheep.text);
     }
 }
 
