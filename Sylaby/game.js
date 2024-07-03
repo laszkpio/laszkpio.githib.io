@@ -49,7 +49,7 @@ function update() {
     this.birdGroup.getChildren().forEach(bird => {
         if (bird.x > 1600) {
             bird.x = 0;
-			bird.text.x = 0;
+			bird.text.x = -100;
         }
     });
 }
