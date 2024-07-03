@@ -24,9 +24,10 @@ function create() {
     for (let i = 0; i < syllables.length; i++) {
         let bird = this.add.sprite(100 + i * 200, 300, 'bird').setInteractive();
         bird.syllable = syllables[i];
-        bird.on('pointerdown', () => {
+        bird.on('pointerdown', () => {	
+			speak(bird.syllable);
             if (bird.syllable === syllables[currentIndex]) {
-                bird.setTint(0x00ff00);  // Correct, turn green
+                bird.setTint(0x00ff00);  // Correct, turn green	
                 currentIndex++;
                 if (currentIndex === syllables.length) {
                     alert('Correct word!');
@@ -59,4 +60,10 @@ function resetGame(birdGroup) {
     birdGroup.getChildren().forEach(bird => {
         bird.clearTint();
     });
+}
+
+function speak(text) {
+      const speechSynthesisUtterance = new SpeechSynthesisUtterance(text);
+      speechSynthesisUtterance.lang = 'pl-PL';
+      window.speechSynthesis.speak(speechSynthesisUtterance);
 }
