@@ -1,5 +1,3 @@
-
-
 let words = [];
 let syllables = [];
 let currentIndex = 0;
@@ -19,17 +17,19 @@ class SylabyScene extends Phaser.Scene {
       .then((data) => {
         words = data.words;
       })
-      .catch((error) => console.error("Error fetching words:", error));
-    words = [
-      "zu-zia",
-      "ko-cham",
-      "zu-zia-ko-cha-ma-mę",
-      "to-ja-zu-zia",
-      "ty-gry-sek-da-niel",
-      "naj-ko-tek-",
-      "pa-pry-ka-chi-li",
-      "po-mi-dor",
-    ];
+      .catch((error) => {
+        console.error("Error fetching words:", error);
+        words = [
+          "zu-zia",
+          "ko-cham",
+          "zu-zia-ko-cha-ma-mę",
+          "to-ja-zu-zia",
+          "ty-gry-sek-da-niel",
+          "naj-ko-tek-",
+          "pa-pry-ka-chi-li",
+          "po-mi-dor",
+        ];
+      });
   }
 
   create() {
@@ -60,7 +60,11 @@ class SylabyScene extends Phaser.Scene {
       const permutations = this.generatePermutations(syllables[i]);
       for (let j = 0; j < permutations.length; j++) {
         let bird = this.add
-          .sprite(1600 + i * 250, 300 + j * 250, "bird")
+          .sprite(
+            1600 + i * 500 + Math.random() * 200,
+            300 + j * 250 + Math.random() * 50,
+            "bird"
+          )
           .setInteractive();
         bird.setScale(0.5);
 
@@ -68,12 +72,12 @@ class SylabyScene extends Phaser.Scene {
         bird.on("pointerdown", () => {
           this.speak(bird.syllable);
           if (bird.syllable === syllables[currentIndex]) {
-            console.log("bird guessed: "+ currentIndex + " "+ bird.syllable)
+            console.log("bird guessed: " + currentIndex + " " + bird.syllable);
             bird.guessed = true;
             bird.text.guessed = true;
             bird.setTint(0x00ff00); // Correct, turn green
             correctSound.play();
-            let positionX = currentIndex * 250;
+            let positionX = 100 + currentIndex * 200;
             let positionY = 50;
             bird.x = positionX;
             bird.y = positionY;
@@ -99,7 +103,7 @@ class SylabyScene extends Phaser.Scene {
             fill: "#fff",
           }
         );
-    
+
         bird.guessed = false;
         bird.text.guessed = false;
         this.birdGroup.add(bird.text);
@@ -175,7 +179,7 @@ const config = {
     width: 1600,
     height: 1200,
   },
-  scene: SylabyScene
+  scene: SylabyScene,
 };
 
 const game = new Phaser.Game(config);
