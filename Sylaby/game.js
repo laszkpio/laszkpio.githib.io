@@ -121,7 +121,7 @@ class SylabyScene extends Phaser.Scene {
     this.birdGroup.getChildren().forEach((bird) => {
       if (bird.x > 1600) {
         bird.x = 0;
-        bird.text.x = -100;
+        bird.text.x = -50;
       }
     });
   }
