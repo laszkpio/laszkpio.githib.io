@@ -56,8 +56,9 @@ class SylabyScene extends Phaser.Scene {
       const permutations = this.generatePermutations(syllables[i]);
       for (let j = 0; j < permutations.length; j++) {
         let bird = this.add
-          .sprite(100 + i * 200, 300 + j * 200, "bird")
+          .sprite(100 + i * 250, 300 + j * 250, "bird")
           .setInteractive();
+        bird.setScale(0.5);
         bird.syllable = permutations[j];
         bird.on("pointerdown", () => {
           this.speak(bird.syllable);
