@@ -34,8 +34,6 @@ function create() {
 }
 
 function createNewBirdsForRandomWord() {
-  // Clear previous birds
-  this.birdGroup.clear(true, true);
   this.birdGroup = this.add.group();
   syllables = getRandomSyllables(words);
   for (let i = 0; i < syllables.length; i++) {
@@ -95,9 +93,7 @@ function update() {
 
 function resetGame(birdGroup) {
   currentIndex = 0;
-  birdGroup.getChildren().forEach((bird) => {
-    bird.clearTint();
-  });
+  this.birdGroup.clear(true, true);
   createNewBirdsForRandomWord();
 }
 
