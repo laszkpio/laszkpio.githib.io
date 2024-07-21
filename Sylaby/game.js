@@ -76,8 +76,8 @@ class SylabyScene extends Phaser.Scene {
           }
         });
         this.birdGroup.add(bird);
-        bird.text = this.add.text(bird.x - 100, bird.y - 80, bird.syllable, {
-          font: "32px Arial",
+        bird.text = this.add.text(bird.x - 50, bird.y - 40, bird.syllable, {
+          font: "24px Arial",
           fill: "#fff",
         });
         this.birdGroup.add(bird.text);
