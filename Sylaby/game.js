@@ -86,7 +86,9 @@ class SylabyScene extends Phaser.Scene {
             currentIndex++;
             if (currentIndex === syllables.length) {
               fanfareSound.play();
-              this.resetGame(this.birdGroup);
+              setTimeout(() => {
+                this.resetGame(this.birdGroup);
+              }, 5000);  
             }
           } else {
             bird.setTint(0xff0000); // incorrect, turn red
@@ -141,8 +143,6 @@ class SylabyScene extends Phaser.Scene {
 
     return permArray;
   };
-
-  addBird(x, y, syllable) {}
 
   update() {
     const nonGuessedBirds = this.birdGroup
