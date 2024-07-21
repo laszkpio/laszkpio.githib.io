@@ -8,6 +8,7 @@ const startButton = document.getElementById("startButton");
 const scoreDisplay = document.getElementById("scoreDisplay");
 const correctSound = document.getElementById("correctSound");
 const fanfareSound = document.getElementById("fanfareSound");
+const incorrectSound = document.getElementById("incorrectSound");
 const keys = document.querySelectorAll(".key");
 const confettiCanvas = document.getElementById("confettiCanvas");
 const confettiCtx = confettiCanvas.getContext("2d");
