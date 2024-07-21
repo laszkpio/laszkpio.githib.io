@@ -30,13 +30,13 @@ function preload() {
 }
 
 function create() {
-  this.birdGroup = this.add.group();
-  createNewBirdsForRandomWord.call(this);
+  createNewBirdsForRandomWord();
 }
 
 function createNewBirdsForRandomWord() {
   // Clear previous birds
   this.birdGroup.clear(true, true);
+  this.birdGroup = this.add.group();
   syllables = getRandomSyllables(words);
   for (let i = 0; i < syllables.length; i++) {
     speak(syllables[i]);
@@ -98,7 +98,7 @@ function resetGame(birdGroup) {
   birdGroup.getChildren().forEach((bird) => {
     bird.clearTint();
   });
-  createNewBirdsForRandomWord.call(this);
+  createNewBirdsForRandomWord();
 }
 
 function speak(text) {
