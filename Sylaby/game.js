@@ -2,11 +2,15 @@ let words = [];
 let syllables = [];
 let currentIndex = 0;
 let currentWord = null;
-let xTextDecrement = 50;
-let yTextDecrement = 100;
-let xBirdDistance = 500;
+
 let ScreenWidth = 1600;
 let screenHeight = 1200;
+
+let xBirdDistance = ScreenWidth / 3 ;
+let yBirdDistance = screenHeight / 5 ;
+
+let xTextDecrement = 50;
+let yTextDecrement = 100;
 let xSpeed = -1;
 
 const correctSound = document.getElementById("correctSound");
@@ -67,7 +71,7 @@ class SylabyScene extends Phaser.Scene {
       const permutations = this.generatePermutations(syllables[i]);
       for (let j = 0; j < permutations.length; j++) {
         let bird = this.add
-          .sprite(ScreenWidth + i * xBirdDistance + Math.random() * 200, 300 + j * 250 + Math.random() * 50,
+          .sprite(ScreenWidth + i * xBirdDistance + Math.random() * 200, (j+1) * yBirdDistance + Math.random() * 50,
             "bird"
           )
           .setInteractive();
@@ -83,7 +87,7 @@ class SylabyScene extends Phaser.Scene {
             bird.setTint(0x00ff00); // Correct, turn green
             correctSound.play();
             let positionX = 100 + currentIndex * 200;
-            let positionY = 80;
+            let positionY = yTextDecrement + 20;
             bird.x = positionX;
             bird.y = positionY;
             bird.text.x = positionX - xTextDecrement;
@@ -93,7 +97,7 @@ class SylabyScene extends Phaser.Scene {
               fanfareSound.play();
               setTimeout(() => {
                 this.resetGame(this.birdGroup);
-              }, 5000);  
+              }, 3000);  
             }
           } else {
             bird.setTint(0xff0000); // incorrect, turn red
