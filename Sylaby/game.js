@@ -12,10 +12,7 @@ const correctSound = document.getElementById("correctSound");
 const fanfareSound = document.getElementById("fanfareSound");
 const incorrectSound = document.getElementById("incorrectSound");
 
-class SylabyScene extends Phaser.Scene {
-  preload() {
-    this.load.image("bird", "sprites/red_bird_normal.png");
-    fetch("words.json")
+fetch("words.json")
       .then((response) => response.json())
       .then((data) => {
         words = data.words;
@@ -33,6 +30,11 @@ class SylabyScene extends Phaser.Scene {
           "po-mi-dor",
         ];
       });
+
+class SylabyScene extends Phaser.Scene {
+  preload() {
+    this.load.image("bird", "sprites/red_bird_normal.png");
+    
   }
 
   create() {
