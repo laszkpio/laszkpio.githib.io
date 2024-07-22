@@ -3,7 +3,7 @@ let syllables = [];
 let currentIndex = 0;
 let currentWord = null;
 let xTextDecrement = 50;
-let yTextDecrement = 50;
+let yTextDecrement = 100;
 let xBirdDistance = 500;
 let ScreenWidth = 1600;
 let screenHeight = 1200;
@@ -106,7 +106,7 @@ class SylabyScene extends Phaser.Scene {
           bird.y - yTextDecrement,
           bird.syllable,
           {
-            font: "28px Arial",
+            font: "32px Arial",
             fill: "#fff",
           }
         );
