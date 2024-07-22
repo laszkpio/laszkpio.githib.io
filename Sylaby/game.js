@@ -54,7 +54,7 @@ class SylabyScene extends Phaser.Scene {
       .split("-")
       .filter((syllable) => syllable.length > 0);
 
-    currentWord = randomWord.replace("/-/g", "");
+    currentWord = randomWord.replaceAll("-", "");
 
     return syllables;
   };
@@ -83,7 +83,7 @@ class SylabyScene extends Phaser.Scene {
             bird.setTint(0x00ff00); // Correct, turn green
             correctSound.play();
             let positionX = 100 + currentIndex * 200;
-            let positionY = 50;
+            let positionY = 80;
             bird.x = positionX;
             bird.y = positionY;
             bird.text.x = positionX - xTextDecrement;
