@@ -7,6 +7,7 @@ let yTextDecrement = 50;
 let xBirdDistance = 500;
 let ScreenWidth = 1600;
 let screenHeight = 1200;
+let xSpeed = -1;
 
 const correctSound = document.getElementById("correctSound");
 const fanfareSound = document.getElementById("fanfareSound");
@@ -34,11 +35,13 @@ fetch("words.json")
 class SylabyScene extends Phaser.Scene {
   preload() {
     this.load.image("bird", "sprites/red_bird_normal.png");
-    
   }
 
   create() {
     this.createNewBirdsForRandomWord();
+    setTimeout(() => {
+      this.speak("Hej Zuzia, następne słowo to "+ currentWord);
+    }, 5000); 
   }
 
   getRandomSyllables = function (words) {
@@ -113,7 +116,6 @@ class SylabyScene extends Phaser.Scene {
         this.birdGroup.add(bird.text);
       }
     }
-    this.speak(currentWord);
   };
 
   generatePermutations = function (syllable) {
@@ -151,7 +153,7 @@ class SylabyScene extends Phaser.Scene {
     const nonGuessedBirds = this.birdGroup
       .getChildren()
       .filter((object) => !object.guessed);
-    Phaser.Actions.IncX(nonGuessedBirds, -3);
+    Phaser.Actions.IncX(nonGuessedBirds, xSpeed);
 
     nonGuessedBirds.forEach((bird) => {
       if (bird.text.x < 0) {
@@ -165,6 +167,7 @@ class SylabyScene extends Phaser.Scene {
     currentIndex = 0;
     birdGroup.clear(true, true);
     this.createNewBirdsForRandomWord();
+    this.speak(currentWord);
   };
 
   speak = function (text) {
@@ -179,7 +182,7 @@ const config = {
     mode: Phaser.Scale.FIT,
     parent: "phaser-example",
     autoCenter: Phaser.Scale.CENTER_BOTH,
-    width: 1600,
+    width: ScreenWidth,
     height: 1200,
   },
   scene: SylabyScene,
