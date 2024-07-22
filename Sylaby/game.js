@@ -4,6 +4,9 @@ let currentIndex = 0;
 let currentWord = null;
 let xTextDecrement = 50;
 let yTextDecrement = 50;
+let xBirdDistance = 500;
+let ScreenWidth = 1600;
+let screenHeight = 1200;
 
 const correctSound = document.getElementById("correctSound");
 const fanfareSound = document.getElementById("fanfareSound");
@@ -54,15 +57,12 @@ class SylabyScene extends Phaser.Scene {
   createNewBirdsForRandomWord = function () {
     this.birdGroup = this.add.group();
     syllables = this.getRandomSyllables(words);
-    this.speak(currentWord);
 
     for (let i = 0; i < syllables.length; i++) {
       const permutations = this.generatePermutations(syllables[i]);
       for (let j = 0; j < permutations.length; j++) {
         let bird = this.add
-          .sprite(
-            1600 + i * 500 + Math.random() * 200,
-            300 + j * 250 + Math.random() * 50,
+          .sprite(ScreenWidth + i * xBirdDistance + Math.random() * 200, 300 + j * 250 + Math.random() * 50,
             "bird"
           )
           .setInteractive();
@@ -111,6 +111,7 @@ class SylabyScene extends Phaser.Scene {
         this.birdGroup.add(bird.text);
       }
     }
+    this.speak(currentWord);
   };
 
   generatePermutations = function (syllable) {
@@ -148,12 +149,12 @@ class SylabyScene extends Phaser.Scene {
     const nonGuessedBirds = this.birdGroup
       .getChildren()
       .filter((object) => !object.guessed);
-    Phaser.Actions.IncX(nonGuessedBirds, -1);
+    Phaser.Actions.IncX(nonGuessedBirds, -3);
 
     nonGuessedBirds.forEach((bird) => {
       if (bird.text.x < 0) {
-        bird.x = 1600;
-        bird.text.x = 1600 - xTextDecrement;
+        bird.x = Math.max(ScreenWidth, syllables.length * xBirdDistance) + Math.random() * 200;
+        bird.text.x = bird.x - xTextDecrement;
       }
     });
   }
