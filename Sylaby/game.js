@@ -6,8 +6,8 @@ let currentWord = null;
 let ScreenWidth = 1600;
 let screenHeight = 1200;
 
-let xBirdDistance = ScreenWidth / 3 ;
-let yBirdDistance = screenHeight / 5 ;
+let xBirdDistance = ScreenWidth / 3;
+let yBirdDistance = screenHeight / 5;
 
 let xTextDecrement = 50;
 let yTextDecrement = 100;
@@ -18,23 +18,37 @@ const fanfareSound = document.getElementById("fanfareSound");
 const incorrectSound = document.getElementById("incorrectSound");
 
 fetch("words.json")
-      .then((response) => response.json())
-      .then((data) => {
-        words = data.words;
-      })
-      .catch((error) => {
-        console.error("Error fetching words:", error);
-        words = [
-          "zu-zia",
-          "ko-cham",
-          "zu-zia-ko-cha-ma-mę",
-          "to-ja-zu-zia",
-          "ty-gry-sek-da-niel",
-          "naj-ko-tek-",
-          "pa-pry-ka-chi-li",
-          "po-mi-dor",
-        ];
-      });
+  .then((response) => response.json())
+  .then((data) => {
+    words = data.words;
+  })
+  .catch((error) => {
+    console.error("Error fetching words:", error);
+    words = [
+      "zu-zia",
+      "ko-cham",
+      "zu-zia-ko-cha-ma-mę",
+      "to-ja-zu-zia",
+      "ty-gry-sek-da-niel",
+      "naj-ko-tek-",
+      "pa-pry-ka-chi-li",
+      "po-mi-dor",
+    ];
+  });
+
+class Button {
+  constructor(x, y, label, scene, callback) {
+    const button = scene.add
+      .text(x, y, label, {font: "40px Arial"})
+      .setOrigin(0.5)
+      .setPadding(10)
+      .setStyle({ backgroundColor: "#111" })
+      .setInteractive({ useHandCursor: true })
+      .on("pointerdown", () => callback())
+      .on("pointerover", () => button.setStyle({ fill: "#f39c12" }))
+      .on("pointerout", () => button.setStyle({ fill: "#FFF" }));
+  }
+}
 
 class SylabyScene extends Phaser.Scene {
   preload() {
@@ -42,10 +56,13 @@ class SylabyScene extends Phaser.Scene {
   }
 
   create() {
-    this.createNewBirdsForRandomWord();
-    setTimeout(() => {
-      this.speak("Hej Zuzia, następne słowo to "+ currentWord);
-    }, 5000); 
+    let startButton = new Button(
+      ScreenWidth / 2,
+      screenHeight - 60,
+      "Rozpocznij grę",
+      this,
+      () => this.resetGame()
+    );
   }
 
   getRandomSyllables = function (words) {
@@ -71,7 +88,9 @@ class SylabyScene extends Phaser.Scene {
       const permutations = this.generatePermutations(syllables[i]);
       for (let j = 0; j < permutations.length; j++) {
         let bird = this.add
-          .sprite(ScreenWidth + i * xBirdDistance + Math.random() * 200, (j+1) * yBirdDistance + Math.random() * 50,
+          .sprite(
+            ScreenWidth + i * xBirdDistance + Math.random() * 200,
+            (j + 1) * yBirdDistance + Math.random() * 50,
             "bird"
           )
           .setInteractive();
@@ -96,8 +115,8 @@ class SylabyScene extends Phaser.Scene {
             if (currentIndex === syllables.length) {
               fanfareSound.play();
               setTimeout(() => {
-                this.resetGame(this.birdGroup);
-              }, 3000);  
+                this.resetGame();
+              }, 3000);
             }
           } else {
             bird.setTint(0xff0000); // incorrect, turn red
@@ -154,24 +173,30 @@ class SylabyScene extends Phaser.Scene {
   };
 
   update() {
-    const nonGuessedBirds = this.birdGroup
-      .getChildren()
-      .filter((object) => !object.guessed);
-    Phaser.Actions.IncX(nonGuessedBirds, xSpeed);
+    if (this.birdGroup != null) {
+      const nonGuessedBirds = this.birdGroup
+        .getChildren()
+        .filter((object) => !object.guessed);
+      Phaser.Actions.IncX(nonGuessedBirds, xSpeed);
 
-    nonGuessedBirds.forEach((bird) => {
-      if (bird.text.x < 0) {
-        bird.x = Math.max(ScreenWidth, syllables.length * xBirdDistance) + Math.random() * 200;
-        bird.text.x = bird.x - xTextDecrement;
-      }
-    });
+      nonGuessedBirds.forEach((bird) => {
+        if (bird.text.x < 0) {
+          bird.x =
+            Math.max(ScreenWidth, syllables.length * xBirdDistance) +
+            Math.random() * 200;
+          bird.text.x = bird.x - xTextDecrement;
+        }
+      });
+    }
   }
 
-  resetGame = function (birdGroup) {
+  resetGame = function () {
     currentIndex = 0;
-    birdGroup.clear(true, true);
+    if (this.birdGroup != null){
+      this.birdGroup.clear(true, true);
+    }
     this.createNewBirdsForRandomWord();
-    this.speak(currentWord);
+    this.speak("Hej Zuzia, następne słowo to "+currentWord);
   };
 
   speak = function (text) {
