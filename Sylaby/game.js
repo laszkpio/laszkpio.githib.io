@@ -101,7 +101,7 @@ class SylabyScene extends Phaser.Scene {
           bird.y - yTextDecrement,
           bird.syllable,
           {
-            font: "24px Arial",
+            font: "28px Arial",
             fill: "#fff",
           }
         );
